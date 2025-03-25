@@ -1,9 +1,9 @@
-const TodoFilter = () => (
+const TodoFilter = ({ filterTodos, filter }) => (
     <section className="container mx-auto mt-8">
         <div className="bg-white flex justify-center gap-4 rounded-md p-4">
-            <button className="text-blue-600">All</button>
-            <button className="hover:text-blue-600">Active</button>
-            <button className="hover:text-blue-600">Completed</button>
+            <button className={ `font-bold hover:text-blue-600 ${ filter === -1 ? 'text-blue-600' : 'text-gray-400' }` } onClick={ () => filterTodos(-1) }>All</button>
+            <button className={ `font-bold hover:text-blue-600 ${ filter === 0 ? 'text-blue-600' : 'text-gray-400' }` } onClick={ () => filterTodos(0) }>Active</button>
+            <button className={ `font-bold hover:text-blue-600 ${ filter === 1 ? 'text-blue-600' : 'text-gray-400' }` } onClick={ () => filterTodos(1) }>Completed</button>
         </div>
     </section>
 );

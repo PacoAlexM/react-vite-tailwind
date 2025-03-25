@@ -10,7 +10,7 @@ const initTodos = [
     {
         id: 1,
         title: 'Learn React, Node.js, Vue and many javascript frameworks.',
-        completed: false
+        completed: true
     },
     {
         id: 2,
@@ -25,7 +25,7 @@ const initTodos = [
     {
         id: 4,
         title: 'Practice Taekwondo.',
-        completed: true
+        completed: false
     },
     {
         id: 5,
@@ -36,8 +36,15 @@ const initTodos = [
 
 const App = () => {
     const [ todos, setTodos ] = useState(initTodos);
+    const [ filter, setFilter ] = useState(-1);
 
     const createTodo = title => setTodos([ ...todos, { id: Date.now(), title, completed: false } ]);
+    const removeTodo = id => setTodos(todos.filter(todo => todo.id !== id));
+    const updateTodo = id => setTodos(todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+    const todosLeft = todos.filter(todo => !todo.completed).length;
+    const clearCompleted = _ => setTodos(todos.filter(todo => !todo.completed));
+    const filteredTodos = _ => (filter === 0 ? todos.filter(todo => !todo.completed) : filter === 1 ? todos.filter(todo => todo.completed) : todos);
+    const filterTodos = filter => setFilter(filter);
 
     return (
         <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-contain bg-no-repeat min-h-screen bg-gray-200">
@@ -45,9 +52,9 @@ const App = () => {
 
             <main className="container mx-auto mt-8 px-4">
                 <TodoForm createTodo={ createTodo } />
-                <TodoList todos={ todos } />
-                <TodoComputed todos={ todos } />
-                <TodoFilter />
+                <TodoList todos={ filteredTodos() } removeTodo={ removeTodo } updateTodo={ updateTodo } />
+                <TodoComputed todosLeft={ todosLeft } clearCompleted={ clearCompleted } />
+                <TodoFilter filterTodos={ filterTodos } filter={ filter } />
             </main>
 
             <footer className="text-center mt-8">Drag and drop to reorder list</footer>
