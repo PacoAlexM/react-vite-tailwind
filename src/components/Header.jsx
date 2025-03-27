@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react';
 import MoonIcon from './MoonIcon';
 import SunIcon from './SunIcon';
 
+const initStateDark = localStorage.getItem('theme') === 'dark' || !('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 const Header = () => {
-    const [dark, setDark] = useState(false)
+    const [dark, setDark] = useState(initStateDark)
 
     useEffect(() => {
         if (dark) {
             document.documentElement.classList.add('dark');
-            localStorage.theme = 'dark';
+            localStorage.setItem('theme', 'dark');
         } else {
             document.documentElement.classList.remove('dark');
-            localStorage.theme = 'light';
+            localStorage.setItem('theme', 'light');
         }
     }, [dark]);
 
