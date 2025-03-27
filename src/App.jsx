@@ -18,11 +18,11 @@ import { useEffect, useState } from 'react';
  */
 const initTodos = JSON.parse(localStorage.getItem('todos')) || [];
 // const initTodos = [
-//     { id: 1, title: 'Learn React, Node.js, Vue and many javascript frameworks.', completed: true },
-//     { id: 2, title: 'Complete a Microsoft Azure certification.', completed: false },
-//     { id: 3, title: 'Find a better paid job.', completed: false },
-//     { id: 4, title: 'Practice Taekwondo.', completed: false },
-//     { id: 5, title: 'Get a fursuit 😎.', completed: false },
+//     { id: 1, title: 'Learn React, Node.js, Vue and many javascript frameworks', completed: true },
+//     { id: 2, title: 'Complete a Microsoft Azure certification', completed: false },
+//     { id: 3, title: 'Find a better paid job', completed: false },
+//     { id: 4, title: 'Practice Taekwondo', completed: false },
+//     { id: 5, title: 'Get a fursuit 😎', completed: false },
 // ];
 
 const App = () => {
@@ -40,13 +40,13 @@ const App = () => {
     useEffect(() => localStorage.setItem('todos', JSON.stringify(todos)), [todos]);
 
     return (
-        <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] bg-contain bg-no-repeat min-h-screen bg-gray-200 dark:bg-gray-900 duration-500">
+        <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] dark:md:bg-[url('./assets/images/bg-desktop-dark.jpg')] bg-contain bg-no-repeat min-h-screen bg-gray-200 dark:bg-gray-900 duration-500">
             <Header />
 
-            <main className="container mx-auto mt-8 px-4">
+            <main className="container md:max-w-xl mx-auto mt-8 px-4">
                 <TodoForm createTodo={ createTodo } />
                 <TodoList todos={ filteredTodos() } removeTodo={ removeTodo } updateTodo={ updateTodo } />
-                <TodoComputed todosLeft={ todosLeft } clearCompleted={ clearCompleted } />
+                <TodoComputed todosLeft={ todosLeft } clearCompleted={ clearCompleted } todos={ filteredTodos() } />
                 <TodoFilter filterTodos={ filterTodos } filter={ filter } />
             </main>
 
