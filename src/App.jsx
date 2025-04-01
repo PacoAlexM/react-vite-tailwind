@@ -36,12 +36,11 @@ const App = () => {
 
     useEffect(() => localStorage.setItem('todos', JSON.stringify(todos)), [todos]);
     
-    const todoOnDragEnd = (result) => {
-        const { destination, source } = result;
+    const todoOnDragEnd = ({ destination, source }) => {
         if (!destination || (source.index === destination.index && source.droppableId === destination.droppableId)) return;
 
         setTodos(prev => orderTodoList(prev, source.index, destination.index));
-      };
+    };
 
     return (
         <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] md:bg-[url('./assets/images/bg-desktop-light.jpg')] dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] dark:md:bg-[url('./assets/images/bg-desktop-dark.jpg')] bg-contain bg-no-repeat min-h-screen bg-gray-200 dark:bg-gray-900 duration-500">
